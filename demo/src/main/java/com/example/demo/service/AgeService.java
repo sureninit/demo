@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 import com.example.demo.AgeException;
 import com.example.demo.model.AgeDetails;
 import com.example.demo.model.AgeModel;
+import com.example.demo.model.AgeMultiple;
 import com.example.demo.repository.AgeDetailsMySqlRepo;
+import com.example.demo.repository.AgeRepository;
 
 @Component
 public class AgeService {
@@ -17,6 +19,9 @@ public class AgeService {
 	
 	@Autowired
 	private AgeDetailsMySqlRepo agedetailRepo;
+	
+	@Autowired
+	private AgeRepository AgeMongoRepo;
 	
 	@Autowired
 	private AgeException ageExcep;
@@ -38,13 +43,18 @@ public class AgeService {
 		
 	}
 	
-	public Optional<AgeDetails> ageData(int id) {
+	public Optional<AgeDetails> ageData(Long id) {
 		
 		
 		Optional<AgeDetails> agedata=agedetailRepo.findById(id);
-		agedetailRepo.findById(id);
+		
 		return agedata;
 		
 	}
 
+	public Optional<AgeMultiple> searchCust(String id) {
+		
+		Optional<AgeMultiple> out = AgeMongoRepo.findById(id);
+		return out;
+	}
 }

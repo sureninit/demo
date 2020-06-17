@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.AgeException;
 import com.example.demo.model.AgeDetails;
+import com.example.demo.model.AgeDetailsMultiple;
 import com.example.demo.model.AgeModel;
 import com.example.demo.model.AgeMultiple;
 import com.example.demo.service.AgeMultipleService;
@@ -23,6 +24,9 @@ public class AgeController {
 
 	@Autowired
 	private AgeService ageservice;
+	
+	@Autowired
+	private AgeDetailsMultiple ageDetailsMultiple;
 
 	@RequestMapping(value = "/check")
 	public String check() {
@@ -52,12 +56,28 @@ public class AgeController {
 		AgeMultiple result1 = ageMultipleService.validationMultiple(agemulti);
 		return result1;
 	}
-
+	//search single customer in mysql
 	@RequestMapping(value = "/agedata", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<Object> ageDetails(@RequestParam("id") int id) {
+	public ResponseEntity<Object> ageDetails(@RequestParam("id") Long id) {
 		Optional<AgeDetails> result = ageservice.ageData(id);
 
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
+	
+	/*
+	 * post method to mongodb*/
+	@RequestMapping(value="/agemultipost", method=RequestMethod.POST, produces="application/json", consumes="application/json")
+	public AgeDetailsMultiple ageDMultipost(@RequestBody AgeDetailsMultiple ageDetailsMultiple) {
+		AgeDetailsMultiple  result2= ageMultipleService.ageDetailsMysql(ageDetailsMultiple);
+		return result2;
+	}
+	// search single custumer in mongodb
+	@RequestMapping(value="/searchtomongo", method=RequestMethod.GET, produces="application/json")
+	public Optional<AgeMultiple> SearchToMongo(@RequestParam("id") String id) {
+		Optional<AgeMultiple> result3 = ageservice.searchCust(id);
+		return result3;
+	}
+	
+	
 
 }
