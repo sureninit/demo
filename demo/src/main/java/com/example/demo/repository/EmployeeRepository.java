@@ -22,4 +22,6 @@ public interface EmployeeRepository extends CrudRepository<EmployeeModelEntity,I
 	@Query("UPDATE  EmployeeModelEntity emp SET emp.salary =:sal WHERE emp.employeeId=:empId")
 	int updateEmployees(@Param("sal") double salary,@Param("empId") int empId );
 	
+	
+	
 }

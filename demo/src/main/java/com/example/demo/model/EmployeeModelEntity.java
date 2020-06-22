@@ -18,7 +18,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 "employeeId",
 "employeeName",
 "employeeDepartment",
-"salary"
+"salary",
+"status"
 })
 public class EmployeeModelEntity {
 	@Id
@@ -38,6 +39,9 @@ public class EmployeeModelEntity {
 	@Column(name="salary")
 	@JsonProperty("salary")
 	private double salary;
+	
+	@JsonProperty("status")
+	private String status;
 	
 	@JsonProperty("employeeId")
 	public int getEmployeeId() {
@@ -67,5 +71,12 @@ public class EmployeeModelEntity {
 	public void setSalary(double salary) {
 		this.salary = salary;
 	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
 	
 }
